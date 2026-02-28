@@ -10,7 +10,12 @@ const https = require('https');
 const http = require('http');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.options('*', cors());
 app.use(express.json());
 
 const db = new sqlite3.Database('./aistatushub.db', (err) => {
